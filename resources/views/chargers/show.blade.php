@@ -448,7 +448,7 @@
                         $('.location').text(data.address);
 
                         $('.description').text(data.description);
-                        $('.space').text(data.chargerSpace);
+                        $('.space').text(data.numChargers);
                         $('.type').text(data.chargerType + " {{trans('lang.wheeler')}}");
 
                         var assign_to = await getAssignUserDetails(data.id);
@@ -478,7 +478,7 @@
                             html += '<tr><td>{{trans("lang.no_facilities_found")}}</td></tr>';
                             $("#facilities").html(html);
                         }
-                        var space = data.chargerSpace;
+                        var space = data.numChargers;
                         var slotHtml = '';
 
                         for (var i = 1; i <= space; i++) {

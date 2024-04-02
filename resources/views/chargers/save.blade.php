@@ -203,7 +203,7 @@
                     }
                     $('.location').val(data.address).attr('lat', data.location.latitude).attr('lng', data.location.longitude);
                     $('.description').val(data.description);
-                    $('.space').val(data.chargerSpace);
+                    $('.space').val(data.numChargers);
                     $('.type').val(data.chargerType);
                     $('.price').val(data.perHrPrice);
                     if (data.facilities) {
@@ -241,7 +241,7 @@
             var long = parseFloat($('.location').attr('lng'));
             var location = {'latitude': lat, 'longitude': long};
             var description = $('.description').val();
-            var chargerSpace = $('.space').val();
+            var numChargers = $('.space').val();
             var chargerPrice = $('.price').val();
             var chargerType = $('.type').val();
             var facilities = [];
@@ -287,7 +287,7 @@
                 $(".error_top").append("<p>{{trans('lang.charger_description_error')}}</p>");
                 window.scrollTo(0, 0);
 
-            } else if (chargerSpace == '') {
+            } else if (numChargers == '') {
                 $(".error_top").show();
                 $(".error_top").html("");
                 $(".error_top").append("<p>{{trans('lang.charger_space_error')}}</p>");
@@ -320,7 +320,7 @@
                             'location': location,
                             'description': description,
                             'facilities': facilities,
-                            'chargerSpace': chargerSpace,
+                            'numChargers': numChargers,
                             'chargerType': chargerType,
                             'perHrPrice': chargerPrice,
                             'reviewCount': '0.0',
@@ -348,7 +348,7 @@
                             'location': location,
                             'description': description,
                             'facilities': facilities,
-                            'chargerSpace': chargerSpace,
+                            'numChargers': numChargers,
                             'chargerType': chargerType,
                             'perHrPrice': chargerPrice,
 

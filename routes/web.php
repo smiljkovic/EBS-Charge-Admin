@@ -34,9 +34,9 @@ Route::get('/parking-facilities', [App\Http\Controllers\ParkingFacilitiesControl
 Route::get('/parking-facilities/save/{id?}', [App\Http\Controllers\ParkingFacilitiesController::class, 'save'])->name('parking-facilities.save');
 
 
-Route::get('/chargers-list', [App\Http\Controllers\ParkingsController::class, 'index'])->name('chargers-list');
-Route::get('/chargers-list/show/{id}', [App\Http\Controllers\ParkingsController::class, 'show'])->name('chargers-list.show');
-Route::get('/chargers-list/save/{id?}', [App\Http\Controllers\ParkingsController::class, 'save'])->name('chargers-list.save');
+Route::get('/chargers-list', [App\Http\Controllers\ChargersController::class, 'index'])->name('chargers-list');
+Route::get('/chargers-list/show/{id}', [App\Http\Controllers\ChargersController::class, 'show'])->name('chargers-list.show');
+Route::get('/chargers-list/save/{id?}', [App\Http\Controllers\ChargersController::class, 'save'])->name('chargers-list.save');
 
 Route::get('/charging-facilities', [App\Http\Controllers\ChargingFacilitiesController::class, 'index'])->name('charging-facilities');
 Route::get('/charging-facilities/save/{id?}', [App\Http\Controllers\ChargingFacilitiesController::class, 'save'])->name('charging-facilities.save');
