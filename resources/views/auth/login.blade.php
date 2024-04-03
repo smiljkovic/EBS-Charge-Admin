@@ -25,7 +25,7 @@
     <link href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    
+
     @yield('style')
 
 </head>
@@ -76,7 +76,7 @@
         <div class="login-logo text-center py-3">
 
             <a href="#"><img
-                        src="{{ asset('images/parkme-logo.png') }}" class="dark-logo"> </a>
+                        src="{{ asset('images/PRO_021-logo.png') }}" class="dark-logo"> </a>
 
         </div>
 
@@ -224,13 +224,13 @@
     let globalLogoRef = database.collection('settings').doc('logo');
     globalLogoRef.get().then(async function (snapshots) {
         var globalLogoSetting = snapshots.data();
-        appLogo = (globalLogoSetting.appLogo) ? globalLogoSetting.appLogo : "{{ asset('images/goride-logo.png') }}";
+        appLogo = (globalLogoSetting.appLogo) ? globalLogoSetting.appLogo : "{{ asset('images/PRO_021-logo.png') }}";
         appFavIconLogo = (globalLogoSetting.appFavIconLogo) ? globalLogoSetting.appFavIconLogo : "{{ asset('images/favicon.png') }}";
         $("#favicon").attr("href", appFavIconLogo)
         $(".dark-logo").attr("src", appLogo);
         $(".light-logo").attr("src", appLogo);
     });
-    
+
     function setCookie(cname, cvalue, exdays) {
         const d = new Date();
         d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));

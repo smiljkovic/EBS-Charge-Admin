@@ -1,8 +1,8 @@
 <div class="navbar-header">
     <a class="navbar-brand" href="<?php echo URL::to('/'); ?>">
         <b>
-            <img src="{{ asset('images/parkme-logo.png') }}" alt="homepage" class="dark-logo" width="100%" id="logo_web">
-            <img src="{{ asset('images/parkme-logo.png') }}" alt="homepage" class="light-logo">
+            <img src="{{ asset('images/PRO_021-logo.png') }}" alt="homepage" class="dark-logo" width="100%" id="logo_web">
+            <img src="{{ asset('images/PRO_021-logo.png') }}" alt="homepage" class="light-logo">
         </b>
     </a>
 </div>
@@ -17,7 +17,7 @@
         </div>
         <div class="language-options">
             <select class="form-control changeLang text-dark" id="language_dropdown">
-                
+
             </select>
         </div>
     </div>
