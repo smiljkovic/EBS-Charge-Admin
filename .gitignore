@@ -15,3 +15,5 @@ yarn-error.log
 /.vscode
 adminpanel_access.log
 adminpanel_error.log
+adminpanel_access.log
+adminpanel_error.log
