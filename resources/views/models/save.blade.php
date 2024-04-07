@@ -148,7 +148,7 @@
                                                      src="{{asset('images/bike_model_2.png')}}">
                                             </label>
                                         </div>
-                                        <div class="select-theme-radio">
+                                         <div class="select-theme-radio">
                                             <label class="form-check-label">
                                                 <input type="radio" name="model_image" class="image model_image"
                                                        data-id="{{asset('images/bike_model_3.png')}}"
@@ -157,7 +157,7 @@
                                                      src="{{asset('images/bike_model_3.png')}}">
                                             </label>
                                         </div>
-                                        <div class="select-theme-radio">
+                                        <!--<div class="select-theme-radio">
                                             <label class="form-check-label">
                                                 <input type="radio" name="model_image" class="image model_image"
                                                        data-id="{{asset('images/bike_model_4.png')}}"
@@ -165,7 +165,7 @@
                                                 <img height="100px" width="100px"
                                                      src="{{asset('images/bike_model_4.png')}}">
                                             </label>
-                                        </div>
+                                        </div> -->
 
 
                                     </div>
@@ -201,6 +201,12 @@
         var requestId = "{{$id}}";
         var id = (requestId == '') ? database.collection("tmp").doc().id : requestId;
         var ref = database.collection('vehicle_brand');
+        var storageRef = firebase.storage().ref('images');
+        var storage = firebase.storage();
+        var photo = "";
+        var fileName = "";
+        var userImageFile = '';
+        var placeholderImage = "{{ asset('/images/default_user.png') }}";
 
         ref.get().then(async function (snapshots) {
             snapshots.docs.forEach((listval) => {
@@ -228,6 +234,7 @@
                     var ref = database.collection('vehicle_model').where("id", "==", id);
                     ref.get().then(async function (snapshots) {
                         var data = snapshots.docs[0].data();
+                        userImageFile = data.image;
                         $('.name').val(data.name);
                         $('.brand').val(data.brandId).trigger('change');
                         $('input:radio[value="' + data.image + '"]').prop('checked', true);
@@ -246,6 +253,7 @@
             var name = $(".name").val();
             var brand = $(".brand").val();
             var image = $('.model_image:checked').val();
+
             if (name == '') {
                 $(".error_top").show();
                 $(".error_top").html("");
@@ -266,12 +274,13 @@
             } else {
                 jQuery("#overlay").show();
                 requestId == ''
-                    ? (database.collection('vehicle_model').doc(id).set({
+                    ? storeImageData().then(IMG => {
+                    database.collection('vehicle_model').doc(id).set({
                         'id': id,
                         'enable': enable,
                         'name': name,
                         'brandId': brand,
-                        'image': image
+                        'image': IMG
                     }).then(function (result) {
                         window.location.href = '{{ route("model.index")}}';
                     }).catch(function (error) {
@@ -279,12 +288,13 @@
                         $(".error_top").show();
                         $(".error_top").html("");
                         $(".error_top").append("<p>" + error + "</p>");
-                    }))
-                    : (database.collection('vehicle_model').doc(id).update({
+                    })})
+                    : storeImageData().then(IMG => {
+                        database.collection('vehicle_model').doc(id).update({
                         'enable': enable,
                         'name': name,
                         'brandId': brand,
-                        'image': image
+                        'image': IMG
                     }).then(function (result) {
                         window.location.href = '{{ route("model.index")}}';
                     }).catch(function (error) {
@@ -292,8 +302,65 @@
                         $(".error_top").show();
                         $(".error_top").html("");
                         $(".error_top").append("<p>" + error + "</p>");
-                    }))
+                    })})
             }
         });
+
+        $(".select-theme-radio").click(function () {
+
+            var f = $('.model_image:checked').val();
+
+            var request = new XMLHttpRequest();
+            request.open('GET', f, true);
+            request.responseType = 'blob';
+            request.onload = function() {
+                var reader = new FileReader();
+                reader.readAsDataURL(request.response);
+                reader.onload = (function (theFile) {
+
+                return function (e) {
+
+                    var filePayload = e.target.result;
+
+                    var filename =  f.replace(/^.*[\\/]/, '');
+                    //var timestamp = Number(new Date());
+                    //var filename = filename.split('.')[0] + "_" + timestamp + '.' + ext;
+                    photo = filePayload;
+                    fileName = filename;
+
+                };
+                })(f);
+            };
+            request.send()
+
+
+        });
+
+        async function storeImageData() {
+            var newPhoto = '';
+            try {
+                if (userImageFile != "" && photo != userImageFile) {
+                    var userOldImageUrlRef = await storage.refFromURL(userImageFile);
+                    await userOldImageUrlRef.delete().then(() => {
+                        console.log("Old file deleted!")
+                    }).catch((error) => {
+                        console.log("ERR File delete ===", error);
+                    });
+                }
+                if (photo != userImageFile) {
+                    photo = photo.replace(/^data:image\/[a-z]+;base64,/, "")
+                    var uploadTask = await storageRef.child(fileName).putString(photo, 'base64', {contentType: 'image/jpg'});
+                    var downloadURL = await uploadTask.ref.getDownloadURL();
+                    newPhoto = downloadURL;
+                    photo = downloadURL;
+                } else {
+                    console.log("photo = userImageFile!")
+                    newPhoto = photo;
+                }
+            } catch (error) {
+                console.log("ERR ===", error);
+            }
+            return newPhoto;
+        }
     </script>
 @endsection

@@ -2,7 +2,7 @@
 
     <ul id="sidebarnav">
 
-        <li>
+        <!-- <li>
             <a class="waves-effect waves-dark" href="{!! url('dashboard') !!}" aria-expanded="false">
 
                 <i class="mdi mdi-home"></i>
@@ -20,7 +20,7 @@
                 <span class="hide-menu">{{trans('lang.gods_eye')}}</span>
 
             </a>
-        </li>
+        </li> -->
 
         <li class="nav-subtitle"><span class="nav-subtitle-span">{{trans('lang.account_management')}}</span></li>
 
