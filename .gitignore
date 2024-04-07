@@ -13,3 +13,5 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+adminpanel_access.log
+adminpanel_error.log

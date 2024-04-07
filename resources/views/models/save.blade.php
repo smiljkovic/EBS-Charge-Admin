@@ -57,10 +57,10 @@
                                 </div>
                                 <div class="form-group row width-100">
                                     <div class="col-12">
-                                        <div class="select-theme-radio">
+                                        <!-- <div class="select-theme-radio">
                                             <label class="form-check-label">
                                                 <input type="radio" name="model_image" class="image model_image"
-                                                       data-id="{{asset('images/car_model_1.png')}}"
+                                                       data-id="{{asset('images/bike_model_1.png')}}"
                                                        value="{{asset('images/car_model_1.png')}}">
                                                 <img height="100px" width="100px"
                                                      src="{{asset('images/car_model_1.png')}}">
@@ -129,7 +129,7 @@
                                                 <img height="100px" width="100px"
                                                      src="{{asset('images/car_model_8.png')}}">
                                             </label>
-                                        </div>
+                                        </div> -->
                                         <div class="select-theme-radio">
                                             <label class="form-check-label">
                                                 <input type="radio" name="model_image" class="image model_image"
